@@ -1,5 +1,18 @@
-function App() {
-    return <h1>The Wild Oasis</h1>;
-}
+import styled from "styled-components";
+import GlobalStyles from "./styles/GlobalStyles";
+import Heading from "./ui/Heading";
 
-export default App;
+const StyledApp = styled.div`
+    padding: 20px;
+`;
+
+export default function App() {
+    return (
+        <>
+            <GlobalStyles />
+            <StyledApp>
+                <Heading>The Wild Oasis</Heading>
+            </StyledApp>
+        </>
+    );
+}
