@@ -6,3 +6,7 @@ export interface ICabin {
     image: string;
     description: string;
 }
+export interface ICabinRes extends ICabin {
+    id: number;
+    created_at: string;
+}
