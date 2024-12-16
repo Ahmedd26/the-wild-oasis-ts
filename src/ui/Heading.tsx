@@ -1,11 +1,11 @@
 import styled, { css } from "styled-components";
 
 interface HeadingProps {
-    variant?: "small" | "medium" | "large";
+    $variant?: "small" | "medium" | "large";
 }
 const Heading = styled.h1<HeadingProps>`
     ${(props) => {
-        switch (props.variant) {
+        switch (props.$variant) {
             case "large":
                 return css`
                     font-size: 3rem;
@@ -27,7 +27,7 @@ const Heading = styled.h1<HeadingProps>`
 `;
 Heading.defaultProps = {
     as: "h1",
-    variant: "medium",
+    $variant: "medium",
 };
 
 export default Heading;
