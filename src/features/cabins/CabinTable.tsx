@@ -5,6 +5,7 @@ import { getCabins } from "../../services/apiCabins";
 import Spinner from "../../ui/Spinner";
 import CabinRow from "./CabinRow";
 import { ICabinRes } from "../../types/cabin.interface";
+import { useCabins } from "./useCabins";
 
 const Table = styled.div`
     border: 1px solid var(--color-grey-200);
@@ -32,14 +33,8 @@ const TableHeader = styled.header`
 
 function CabinTable() {
     // ICabinRes is the interface for the response data object
-    const {
-        isLoading,
-        data: cabins,
-        error,
-    } = useQuery<ICabinRes[]>({
-        queryKey: [queryKeys.CABINS],
-        queryFn: getCabins,
-    });
+    const { isLoading, cabins } = useCabins();
+
     if (isLoading) return <Spinner />;
 
     return (
