@@ -3,7 +3,7 @@ export interface ICabin {
     maxCapacity: number;
     regularPrice: number;
     discount: number;
-    image: string;
+    image: File;
     description: string;
 }
 export interface ICabinRes extends ICabin {

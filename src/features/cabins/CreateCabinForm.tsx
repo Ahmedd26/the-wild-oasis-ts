@@ -12,9 +12,10 @@ import Textarea from "../../ui/Textarea";
 import toast from "react-hot-toast";
 
 function CreateCabinForm() {
+    type formData = Omit<ICabin, "image"> & { image: FileList };
     const queryClient = useQueryClient();
     const { register, handleSubmit, reset, getValues, formState } =
-        useForm<ICabin>();
+        useForm<formData>();
     const { errors } = formState;
     const { mutate, isLoading: isCreating } = useMutation({
         mutationFn: createCabin,
@@ -25,9 +26,8 @@ function CreateCabinForm() {
         },
         onError: (error: Error) => toast.error(error.message),
     });
-
-    function onSubmit(data: ICabin) {
-        mutate(data);
+    function onSubmit(data: formData) {
+        mutate({ ...data, image: data.image[0] });
     }
 
     return (

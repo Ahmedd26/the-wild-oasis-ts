@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import { ICabin } from "../types/cabin.interface";
 
 import React from "react";
 
