@@ -1,13 +1,16 @@
-export interface ICabin {
+export interface ICabinBase {
     name: string;
     maxCapacity: number;
     regularPrice: number;
     discount: number;
-    image: File;
     description: string;
 }
-export interface ICabinRes extends ICabin {
+export interface ICabin extends ICabinBase {
+    image: File;
+}
+export interface ICabinRes extends ICabinBase {
     id: number;
+    image: string;
     created_at: string;
 }
 

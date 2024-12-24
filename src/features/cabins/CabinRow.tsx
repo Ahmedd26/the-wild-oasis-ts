@@ -5,6 +5,8 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { deleteCabin } from "../../services/apiCabins";
 import { QueryKeys, queryKeys } from "../../types/queryKey";
 import toast from "react-hot-toast";
+import { useState } from "react";
+import CreateCabinForm from "./CreateCabinForm";
 
 const TableRow = styled.div`
     display: grid;
@@ -50,6 +52,7 @@ interface IProps {
 }
 
 function CabinRow({ cabin }: IProps) {
+    const [showForm, setShowForm] = useState(false);
     const {
         id: cabinId,
         name,
@@ -72,16 +75,27 @@ function CabinRow({ cabin }: IProps) {
         onError: (error: Error) => toast.error(error.message),
     });
     return (
-        <TableRow role="row">
-            <Img src={image} alt={name} />
-            <Cabin>{name}</Cabin>
-            <div>Fits up to {maxCapacity} guests</div>
-            <Price>{formatCurrency(regularPrice)}</Price>
-            <Discount>{formatCurrency(discount)}</Discount>
-            <button onClick={() => mutate(cabinId)} disabled={isDeleting}>
-                {isDeleting ? "Deleting cabin" : "Delete"}
-            </button>
-        </TableRow>
+        <>
+            <TableRow role="row">
+                <Img src={image} alt={name} />
+                <Cabin>{name}</Cabin>
+                <div>Fits up to {maxCapacity} guests</div>
+                <Price>{formatCurrency(regularPrice)}</Price>
+                <Discount>{formatCurrency(discount)}</Discount>
+                <div>
+                    <button onClick={() => setShowForm((show) => !show)}>
+                        Edit
+                    </button>
+                    <button
+                        onClick={() => mutate(cabinId)}
+                        disabled={isDeleting}
+                    >
+                        {isDeleting ? "Deleting cabin" : "Delete"}
+                    </button>
+                </div>
+            </TableRow>
+            {showForm && <CreateCabinForm cabinToEdit={cabin} />}
+        </>
     );
 }
 
