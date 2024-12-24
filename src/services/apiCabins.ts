@@ -53,6 +53,7 @@ export async function createEditCabin(
         console.error(error);
         throw new Error("Cabin could not be created");
     }
+    if (typeof newCabin.image === "string") return data;
 
     if (newCabin.image instanceof File) {
         // 2. Upload image
