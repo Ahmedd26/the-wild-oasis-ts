@@ -1,5 +1,5 @@
 import { PostgrestSingleResponse } from "@supabase/supabase-js";
-import { ICabin, ICabinBase, ICabinRes } from "../types/cabin.interface";
+import { ICabinBase, ICabinRes } from "../types/cabin.interface";
 import { queryKeys } from "../types/queryKey";
 import supabase, { supabaseUrl } from "./supabase";
 

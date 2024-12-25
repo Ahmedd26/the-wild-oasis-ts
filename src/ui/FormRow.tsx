@@ -4,7 +4,7 @@ import React from "react";
 
 interface Props {
     label?: string;
-    errors: string | undefined;
+    errors?: string | undefined;
     children: React.ReactElement<HTMLInputElement>;
 }
 
