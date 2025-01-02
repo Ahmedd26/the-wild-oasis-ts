@@ -1,9 +1,9 @@
 import styled, { css } from "styled-components";
 
-const Form = styled.form<{ type?: "modal" }>`
+const Form = styled.form<{ type?: "modal" | "regular" }>`
     ${(props) => {
         switch (props.type) {
-            case "modal":
+            case "regular":
                 return css`
                     padding: 2.4rem 4rem;
                     /* Box */
@@ -21,5 +21,9 @@ const Form = styled.form<{ type?: "modal" }>`
     overflow: hidden;
     font-size: 1.4rem;
 `;
+
+Form.defaultProps = {
+    type: "regular",
+};
 
 export default Form;

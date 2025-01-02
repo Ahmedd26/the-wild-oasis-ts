@@ -9,7 +9,12 @@ import Textarea from "../../ui/Textarea";
 import { useCreateCabin } from "./useCreateCabin";
 import { useEditCabin } from "./useEditCabin";
 
-function CreateCabinForm({ cabinToEdit }: { cabinToEdit?: ICabinRes }) {
+interface Props {
+    cabinToEdit?: ICabinRes;
+    onCloseModal?: () => void;
+}
+
+function CreateCabinForm({ cabinToEdit, onCloseModal }: Props) {
     const { createCabin, isCreating } = useCreateCabin();
     const { editCabin, isEditing } = useEditCabin();
     const isWorking = isCreating || isEditing;
@@ -29,13 +34,30 @@ function CreateCabinForm({ cabinToEdit }: { cabinToEdit?: ICabinRes }) {
         if (isEditSession && editId !== undefined)
             editCabin(
                 { newCabinData: { ...data, image }, id: editId },
-                { onSuccess: () => reset() }
+                {
+                    onSuccess: () => {
+                        reset();
+                        onCloseModal?.();
+                    },
+                }
             );
-        else createCabin({ ...data, image }, { onSuccess: () => reset() });
+        else
+            createCabin(
+                { ...data, image },
+                {
+                    onSuccess: () => {
+                        reset();
+                        onCloseModal?.();
+                    },
+                }
+            );
     }
 
     return (
-        <Form onSubmit={handleSubmit(onSubmit)}>
+        <Form
+            onSubmit={handleSubmit(onSubmit)}
+            type={onCloseModal ? "modal" : "regular"}
+        >
             <FormRow label="Cabin name" errors={errors?.name?.message}>
                 <Input
                     disabled={isWorking}
@@ -120,7 +142,12 @@ function CreateCabinForm({ cabinToEdit }: { cabinToEdit?: ICabinRes }) {
             </FormRow>
             <StyledFormRow>
                 {/* type is an HTML attribute! */}
-                <Button variation="secondary" type="reset">
+                <Button
+                    variation="secondary"
+                    type="reset"
+                    // Since onCloseModal is optional
+                    onClick={() => onCloseModal?.()}
+                >
                     Cancel
                 </Button>
                 <Button disabled={isWorking}>
