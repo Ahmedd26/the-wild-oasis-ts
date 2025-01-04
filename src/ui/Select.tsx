@@ -13,3 +13,24 @@ const StyledSelect = styled.select<{ type: string }>`
     font-weight: 500;
     box-shadow: var(--shadow-sm);
 `;
+
+interface Props {
+    options: { value: string; label: string }[];
+    value: string;
+    type: string;
+    onChange: (e: React.ChangeEvent<HTMLSelectElement>) => void;
+}
+
+function Select({ options, value, type, onChange }: Props) {
+    return (
+        <StyledSelect type={type} value={value} onChange={onChange}>
+            {options.map((option) => (
+                <option key={option.value} value={option.value}>
+                    {option.label}
+                </option>
+            ))}
+        </StyledSelect>
+    );
+}
+
+export default Select;
