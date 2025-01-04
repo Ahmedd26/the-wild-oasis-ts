@@ -55,6 +55,7 @@ function Filter({
                 <FilterButton
                     key={option}
                     active={currentFilter === option}
+                    disabled={currentFilter === option}
                     onClick={() => handleClick(option)}
                 >
                     {capitalizeFirstLetter(option.replace(/-/g, " "))}
