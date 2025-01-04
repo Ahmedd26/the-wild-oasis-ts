@@ -93,13 +93,14 @@ function Open({
     const { open } = context;
     return cloneElement(children, { onClick: () => open(opensWindowName) });
 }
+
 function Window({ children, name }: { children: ReactNode; name: string }) {
     const context = useContext(ModalContext);
     if (!context) {
         throw new Error("Window must be used within a Modal");
     }
     const { openName, close } = context;
-    const { ref } = useOutsideClick(close);
+    const ref = useOutsideClick<HTMLDivElement>(close);
     if (name !== openName) return null;
 
     return createPortal(
