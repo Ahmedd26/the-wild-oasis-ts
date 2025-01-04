@@ -1,4 +1,6 @@
+import { useSearchParams } from "react-router-dom";
 import styled, { css } from "styled-components";
+import { capitalizeFirstLetter } from "../utils/helpers";
 
 const StyledFilter = styled.div`
     border: 1px solid var(--color-grey-100);
@@ -10,7 +12,7 @@ const StyledFilter = styled.div`
     gap: 0.4rem;
 `;
 
-const FilterButton = styled.button<{ active: boolean }>`
+const FilterButton = styled.button<{ active?: boolean }>`
     background-color: var(--color-grey-0);
     border: none;
 
@@ -33,3 +35,33 @@ const FilterButton = styled.button<{ active: boolean }>`
         color: var(--color-brand-50);
     }
 `;
+
+function Filter({
+    filterField,
+    options,
+}: {
+    filterField: string;
+    options: string[];
+}) {
+    const [searchParams, setSearchParams] = useSearchParams();
+    const currentFilter = searchParams.get(filterField) || options.at(0);
+    function handleClick(value: string) {
+        searchParams.set(filterField, value);
+        setSearchParams(searchParams);
+    }
+    return (
+        <StyledFilter>
+            {options.map((option) => (
+                <FilterButton
+                    key={option}
+                    active={currentFilter === option}
+                    onClick={() => handleClick(option)}
+                >
+                    {capitalizeFirstLetter(option.replace(/-/g, " "))}
+                </FilterButton>
+            ))}
+        </StyledFilter>
+    );
+}
+
+export default Filter;
