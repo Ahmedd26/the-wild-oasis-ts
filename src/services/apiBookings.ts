@@ -1,5 +1,6 @@
 import { IBookingRes } from "../types/booking.interface";
 import { queryKeys } from "../types/queryKey";
+import { PAGE_SIZE } from "../utils/constants";
 import { getToday } from "../utils/helpers";
 import supabase from "./supabase";
 
@@ -12,13 +13,15 @@ interface getBookingsParams {
         field: keyof IBookingRes;
         direction: "asc" | "desc";
     };
+    page: number;
 }
 
-export async function getBookings({ filter, sortBy }: getBookingsParams) {
+export async function getBookings({ filter, sortBy, page }: getBookingsParams) {
     let query = supabase
         .from(queryKeys.BOOKINGS)
         .select(
-            `id, created_at, startDate, endDate, numNights, numGuests, status, totalPrice, ${queryKeys.CABINS}(name), ${queryKeys.GUESTS}(fullName, email)`
+            `id, created_at, startDate, endDate, numNights, numGuests, status, totalPrice, ${queryKeys.CABINS}(name), ${queryKeys.GUESTS}(fullName, email)`,
+            { count: "exact" }
         );
 
     // Filter
@@ -31,13 +34,19 @@ export async function getBookings({ filter, sortBy }: getBookingsParams) {
             ascending: sortBy.direction === "asc",
         });
     }
+    // Pagination
+    if (page) {
+        const from = (page - 1) * PAGE_SIZE;
+        const to = from + PAGE_SIZE - 1;
+        query = query.range(from, to);
+    }
 
-    const { data, error } = await query;
+    const { data, error, count } = await query;
     if (error) {
         console.error(error);
         throw new Error("Bookings could not be retrieved");
     }
-    return data;
+    return { data, count };
 }
 
 export async function getBooking(id: string) {

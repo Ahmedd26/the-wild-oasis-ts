@@ -8,6 +8,7 @@ interface useBookingsReturn {
     isLoading: boolean;
     bookings: IBookingRes[] | unknown;
     error: Error | unknown;
+    count: number | null;
 }
 export function useBookings(): useBookingsReturn {
     const [searchParams] = useSearchParams();
@@ -29,14 +30,20 @@ export function useBookings(): useBookingsReturn {
     ];
     const sortBy = { field, direction };
 
-    const {
-        isLoading,
-        data: bookings,
-        error,
-    } = useQuery({
+    // Pagination
+    const page = !searchParams.get("page")
+        ? 1
+        : Number(searchParams.get("page"));
+
+    const { isLoading, data, error } = useQuery({
         // filter works exactly as the dependency array on useEffect hook
-        queryKey: [queryKeys.BOOKINGS, filter, sortBy],
-        queryFn: () => getBookings({ filter, sortBy }),
+        queryKey: [queryKeys.BOOKINGS, filter, sortBy, page],
+        queryFn: () => getBookings({ filter, sortBy, page }),
     });
-    return { isLoading, bookings, error };
+    return {
+        isLoading,
+        bookings: data?.data ?? [],
+        error,
+        count: data?.count ?? null,
+    };
 }
