@@ -1,14 +1,13 @@
 import BookingRow from "./BookingRow";
 import Table from "../../ui/Table";
 import Menus from "../../ui/Menus";
-// import { IBookingRes } from "../../types/booking.interface";
 import Empty from "../../ui/Empty";
 import { useBookings } from "./useBookings";
 import Spinner from "../../ui/Spinner";
 import { IBookingRes } from "../../types/booking.interface";
+import Pagination from "../../ui/Pagination";
 
 function BookingTable() {
-    // const bookings: IBookingRes[] = [];
     const { bookings, isLoading } = useBookings();
     if (isLoading) return <Spinner />;
     if (!bookings) return <Empty resourceName="Bookings" />;
@@ -30,6 +29,9 @@ function BookingTable() {
                         <BookingRow key={booking.id} booking={booking} />
                     )}
                 />
+                <Table.Footer>
+                    <Pagination count={9} />
+                </Table.Footer>
             </Table>
         </Menus>
     );
