@@ -1,16 +1,8 @@
 import { useSearchParams } from "react-router-dom";
 import Select from "./Select";
 
-type valueType =
-    | "name-asc"
-    | "name-desc"
-    | "regularPrice-asc"
-    | "regularPrice-desc"
-    | "maxCapacity-asc"
-    | "maxCapacity-desc";
-
 interface option {
-    value: valueType;
+    value: string;
     label: string;
 }
 interface Props {

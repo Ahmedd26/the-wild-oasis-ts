@@ -3,12 +3,25 @@ import { queryKeys } from "../types/queryKey";
 import { getToday } from "../utils/helpers";
 import supabase from "./supabase";
 
-export async function getBookings() {
-    const { data, error } = await supabase
+interface getBookingsParams {
+    filter: {
+        field: string;
+        value: string;
+    } | null;
+}
+
+export async function getBookings({ filter }: getBookingsParams) {
+    let query = supabase
         .from(queryKeys.BOOKINGS)
         .select(
             `id, created_at, startDate, endDate, numNights, numGuests, status, totalPrice, ${queryKeys.CABINS}(name), ${queryKeys.GUESTS}(fullName, email)`
         );
+
+    // Filter
+    if (filter !== null) {
+        query = query.eq(filter?.field, filter?.value);
+    }
+    const { data, error } = await query;
     if (error) {
         console.error(error);
         throw new Error("Bookings could not be retrieved");
