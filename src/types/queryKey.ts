@@ -2,6 +2,7 @@ export const queryKeys = {
     CABINS: "cabins",
     BOOKINGS: "bookings",
     USERS: "users",
+    GUESTS: "guests",
     SETTINGS: "settings",
 } as const;
 
