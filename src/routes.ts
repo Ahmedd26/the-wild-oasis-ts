@@ -2,6 +2,7 @@
 export const routes = {
     DASHBOARD: "dashboard" as const,
     BOOKINGS: "bookings" as const,
+    BOOKING: (bookingId: string | number) => `${bookingId}` as const,
     CABINS: "cabins" as const,
     USERS: "users" as const,
     SETTINGS: "settings" as const,

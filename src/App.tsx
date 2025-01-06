@@ -10,6 +10,7 @@ import queryClient from "./services/queryClient";
 // ** Pages ** //
 const Dashboard = lazy(() => import("./pages/Dashboard"));
 const Bookings = lazy(() => import("./pages/Bookings"));
+const Booking = lazy(() => import("./pages/Booking"));
 const Cabins = lazy(() => import("./pages/Cabins"));
 const NewUsers = lazy(() => import("./pages/Users"));
 const Settings = lazy(() => import("./pages/Settings"));
@@ -44,6 +45,10 @@ function App() {
                             <Route
                                 path={routes.BOOKINGS}
                                 element={<Bookings />}
+                            />
+                            <Route
+                                path={`${routes.BOOKINGS}/:bookingId`}
+                                element={<Booking />}
                             />
                             <Route path={routes.CABINS} element={<Cabins />} />
                             <Route path={routes.USERS} element={<NewUsers />} />
