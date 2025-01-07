@@ -118,7 +118,11 @@ export async function getStaysTodayActivity() {
     return data;
 }
 
-export async function updateBooking(id: string, obj: IBookingRes) {
+interface checkInObj {
+    status: "checked-in";
+    isPaid: boolean;
+}
+export async function updateBooking(id: string, obj: checkInObj) {
     const { data, error } = await supabase
         .from("bookings")
         .update(obj)

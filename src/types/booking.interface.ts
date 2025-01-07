@@ -16,6 +16,7 @@ export interface IBookingRes {
     numNights: number;
     numGuests: number;
     totalPrice: number;
+    isPaid: boolean;
     status: "unconfirmed" | "checked-in" | "checked-out";
     cabins: {
         name: string;

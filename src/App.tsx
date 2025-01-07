@@ -16,6 +16,7 @@ const NewUsers = lazy(() => import("./pages/Users"));
 const Settings = lazy(() => import("./pages/Settings"));
 const Account = lazy(() => import("./pages/Account"));
 const Login = lazy(() => import("./pages/Login"));
+const Checkin = lazy(() => import("./pages/Checkin"));
 const PageNotFound = lazy(() => import("./pages/PageNotFound"));
 // ** Layout & Styles ** //
 import GlobalStyles from "./styles/GlobalStyles";
@@ -49,6 +50,10 @@ function App() {
                             <Route
                                 path={`${routes.BOOKINGS}/:bookingId`}
                                 element={<Booking />}
+                            />
+                            <Route
+                                path={`${routes.CHECKIN}/:bookingId`}
+                                element={<Checkin />}
                             />
                             <Route path={routes.CABINS} element={<Cabins />} />
                             <Route path={routes.USERS} element={<NewUsers />} />
