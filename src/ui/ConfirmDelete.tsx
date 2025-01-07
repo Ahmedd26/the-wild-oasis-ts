@@ -23,7 +23,7 @@ const StyledConfirmDelete = styled.div`
 interface IProps {
     resourceName: string;
     onConfirm: () => void;
-    onCloseModal: () => void;
+    onCloseModal?: () => void;
     disabled?: boolean;
 }
 
