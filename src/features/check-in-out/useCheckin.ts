@@ -5,14 +5,26 @@ import { queryKeys } from "../../types/queryKey";
 import { useNavigate } from "react-router-dom";
 import { routes } from "../../routes";
 
+interface IBreakfast {
+    hasBreakfast: boolean;
+    extrasPrice: number;
+    totalPrice: number;
+}
 export function useChecking() {
     const queryClient = useQueryClient();
     const navigate = useNavigate();
     const { mutate: checkin, isLoading: isCheckingIn } = useMutation({
-        mutationFn: (bookingId: string) =>
+        mutationFn: ({
+            bookingId,
+            breakfast,
+        }: {
+            bookingId: string;
+            breakfast?: IBreakfast | object;
+        }) =>
             updateBooking(bookingId, {
                 status: "checked-in",
                 isPaid: true,
+                ...breakfast,
             }),
         onSuccess: (data) => {
             toast.success(`Booking #${data.id} successfully  checked in`);
