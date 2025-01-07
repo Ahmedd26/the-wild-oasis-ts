@@ -16,8 +16,8 @@ export function useLogin() {
             password: string;
         }) => loginApi({ email, password }),
         onSuccess: (user) => {
-            queryClient.setQueriesData([queryKeys.USER], user);
-            navigate("/");
+            queryClient.setQueryData([queryKeys.USER], user.user);
+            navigate("/", { replace: true });
             // navigate("/");
         },
         onError: (error: Error) => toast.error(error.message),
