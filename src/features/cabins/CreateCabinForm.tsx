@@ -58,7 +58,7 @@ function CreateCabinForm({ cabinToEdit, onCloseModal }: Props) {
             onSubmit={handleSubmit(onSubmit)}
             type={onCloseModal ? "modal" : "regular"}
         >
-            <FormRow label="Cabin name" errors={errors?.name?.message}>
+            <FormRow label="Cabin name" error={errors?.name?.message}>
                 <Input
                     disabled={isWorking}
                     type="text"
@@ -70,7 +70,7 @@ function CreateCabinForm({ cabinToEdit, onCloseModal }: Props) {
             </FormRow>
             <FormRow
                 label="Maximum capacity"
-                errors={errors?.maxCapacity?.message}
+                error={errors?.maxCapacity?.message}
             >
                 <Input
                     disabled={isWorking}
@@ -87,7 +87,7 @@ function CreateCabinForm({ cabinToEdit, onCloseModal }: Props) {
             </FormRow>
             <FormRow
                 label="Regular price"
-                errors={errors?.regularPrice?.message}
+                error={errors?.regularPrice?.message}
             >
                 <Input
                     disabled={isWorking}
@@ -102,7 +102,7 @@ function CreateCabinForm({ cabinToEdit, onCloseModal }: Props) {
                     })}
                 />
             </FormRow>
-            <FormRow label="Discount" errors={errors?.discount?.message}>
+            <FormRow label="Discount" error={errors?.discount?.message}>
                 <Input
                     disabled={isWorking}
                     type="number"
@@ -118,7 +118,7 @@ function CreateCabinForm({ cabinToEdit, onCloseModal }: Props) {
             </FormRow>
             <FormRow
                 label="Description for website"
-                errors={errors?.description?.message}
+                error={errors?.description?.message}
             >
                 <Textarea
                     id="description"
@@ -129,7 +129,7 @@ function CreateCabinForm({ cabinToEdit, onCloseModal }: Props) {
                 />
                 {/* <Textarea type="number" id="description" defaultValue="" /> */}
             </FormRow>
-            <FormRow label="Cabin photo" errors={errors?.image?.message}>
+            <FormRow label="Cabin photo" error={errors?.image?.message}>
                 <FileInput
                     id="image"
                     accept="image/*"

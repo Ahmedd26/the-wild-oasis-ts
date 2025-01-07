@@ -4,7 +4,7 @@ import React from "react";
 
 interface Props {
     label?: string;
-    errors?: string | undefined;
+    error?: string | undefined;
     children: React.ReactElement<HTMLInputElement>;
 }
 
@@ -44,12 +44,12 @@ const Error = styled.span`
     color: var(--color-red-700);
 `;
 
-function FormRow({ children, errors, label }: Props) {
+function FormRow({ children, error, label }: Props) {
     return (
         <StyledFormRow>
             {label && <Label htmlFor={children.props.id}>{label}</Label>}
             {children}
-            {errors && <Error role="alert">{errors}</Error>}
+            {error && <Error role="alert">{error}</Error>}
         </StyledFormRow>
     );
 }
