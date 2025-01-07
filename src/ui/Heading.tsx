@@ -2,6 +2,7 @@ import styled, { css } from "styled-components";
 
 interface HeadingProps {
     $variant?: "small" | "medium" | "large";
+    $textAlign?: "center" | "left" | "right";
 }
 const Heading = styled.h1<HeadingProps>`
     ${(props) => {
@@ -23,11 +24,13 @@ const Heading = styled.h1<HeadingProps>`
                 `;
         }
     }}
+    text-align: ${(props) => props.$textAlign};
     line-height: 1.4;
 `;
 Heading.defaultProps = {
     as: "h1",
     $variant: "medium",
+    $textAlign: "center",
 };
 
 export default Heading;
