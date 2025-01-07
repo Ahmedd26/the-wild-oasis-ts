@@ -3,6 +3,7 @@ export const queryKeys = {
     BOOKINGS: "bookings",
     BOOKING: "booking",
     USERS: "users",
+    USER: "user",
     GUESTS: "guests",
     SETTINGS: "settings",
 } as const;

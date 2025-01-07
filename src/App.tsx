@@ -23,6 +23,7 @@ import GlobalStyles from "./styles/GlobalStyles";
 import AppLayout from "./ui/AppLayout";
 import SpinnerFullPage from "./ui/SpinnerFullPage";
 import { Toaster } from "react-hot-toast";
+import ProtectedRoutes from "./features/authentication/ProtectedRoutes";
 
 function App() {
     return (
@@ -32,7 +33,13 @@ function App() {
             <BrowserRouter>
                 <Suspense fallback={<SpinnerFullPage />}>
                     <Routes>
-                        <Route element={<AppLayout />}>
+                        <Route
+                            element={
+                                <ProtectedRoutes>
+                                    <AppLayout />
+                                </ProtectedRoutes>
+                            }
+                        >
                             <Route
                                 index
                                 element={
