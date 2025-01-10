@@ -3,7 +3,6 @@ import { useRecentBookings } from "./useRecentBookings";
 import Spinner from "../../ui/Spinner";
 import { useRecentStays } from "./useRecentStays";
 import Stats from "./Stats";
-import { IBookingSales, IStay } from "./dashboard.interfaces";
 import { useCabins } from "../cabins/useCabins";
 
 const StyledDashboardLayout = styled.div`
