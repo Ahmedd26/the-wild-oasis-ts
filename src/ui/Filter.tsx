@@ -35,13 +35,17 @@ const FilterButton = styled.button<{ active?: boolean }>`
         color: var(--color-brand-50);
     }
 `;
+interface options {
+    value: string;
+    label: string;
+}
 
 function Filter({
     filterField,
     options,
 }: {
     filterField: string;
-    options: string[];
+    options: options[];
 }) {
     const [searchParams, setSearchParams] = useSearchParams();
     const currentFilter = searchParams.get(filterField) || options.at(0);
@@ -56,12 +60,12 @@ function Filter({
         <StyledFilter>
             {options.map((option) => (
                 <FilterButton
-                    key={option}
-                    active={currentFilter === option}
+                    key={option.value}
+                    active={currentFilter === option.value}
                     disabled={currentFilter === option}
-                    onClick={() => handleClick(option)}
+                    onClick={() => handleClick(option.value)}
                 >
-                    {capitalizeFirstLetter(option.replace(/-/g, " "))}
+                    {option.label}
                 </FilterButton>
             ))}
         </StyledFilter>
