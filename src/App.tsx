@@ -24,84 +24,96 @@ import AppLayout from "./ui/AppLayout";
 import SpinnerFullPage from "./ui/SpinnerFullPage";
 import { Toaster } from "react-hot-toast";
 import ProtectedRoutes from "./features/authentication/ProtectedRoutes";
+import { DarkModeProvider } from "./context/DarkModeContext";
 
 function App() {
     return (
-        <QueryClientProvider client={queryClient}>
-            <ReactQueryDevtools />
-            <GlobalStyles /> {/* Styled Component */}
-            <BrowserRouter>
-                <Suspense fallback={<SpinnerFullPage />}>
-                    <Routes>
-                        <Route
-                            element={
-                                <ProtectedRoutes>
-                                    <AppLayout />
-                                </ProtectedRoutes>
-                            }
-                        >
+        <DarkModeProvider>
+            <QueryClientProvider client={queryClient}>
+                <ReactQueryDevtools />
+                <GlobalStyles /> {/* Styled Component */}
+                <BrowserRouter>
+                    <Suspense fallback={<SpinnerFullPage />}>
+                        <Routes>
                             <Route
-                                index
                                 element={
-                                    <Navigate replace to={routes.DASHBOARD} />
+                                    <ProtectedRoutes>
+                                        <AppLayout />
+                                    </ProtectedRoutes>
                                 }
-                            />
+                            >
+                                <Route
+                                    index
+                                    element={
+                                        <Navigate
+                                            replace
+                                            to={routes.DASHBOARD}
+                                        />
+                                    }
+                                />
+                                <Route
+                                    path={routes.DASHBOARD}
+                                    element={<Dashboard />}
+                                />
+                                <Route
+                                    path={routes.BOOKINGS}
+                                    element={<Bookings />}
+                                />
+                                <Route
+                                    path={`${routes.BOOKINGS}/:bookingId`}
+                                    element={<Booking />}
+                                />
+                                <Route
+                                    path={`${routes.CHECKIN}/:bookingId`}
+                                    element={<Checkin />}
+                                />
+                                <Route
+                                    path={routes.CABINS}
+                                    element={<Cabins />}
+                                />
+                                <Route
+                                    path={routes.USERS}
+                                    element={<NewUsers />}
+                                />
+                                <Route
+                                    path={routes.SETTINGS}
+                                    element={<Settings />}
+                                />
+                                <Route
+                                    path={routes.ACCOUNT}
+                                    element={<Account />}
+                                />
+                            </Route>
+                            <Route path={routes.LOGIN} element={<Login />} />
                             <Route
-                                path={routes.DASHBOARD}
-                                element={<Dashboard />}
+                                path={routes.NOT_FOUND}
+                                element={<PageNotFound />}
                             />
-                            <Route
-                                path={routes.BOOKINGS}
-                                element={<Bookings />}
-                            />
-                            <Route
-                                path={`${routes.BOOKINGS}/:bookingId`}
-                                element={<Booking />}
-                            />
-                            <Route
-                                path={`${routes.CHECKIN}/:bookingId`}
-                                element={<Checkin />}
-                            />
-                            <Route path={routes.CABINS} element={<Cabins />} />
-                            <Route path={routes.USERS} element={<NewUsers />} />
-                            <Route
-                                path={routes.SETTINGS}
-                                element={<Settings />}
-                            />
-                            <Route
-                                path={routes.ACCOUNT}
-                                element={<Account />}
-                            />
-                        </Route>
-                        <Route path={routes.LOGIN} element={<Login />} />
-                        <Route
-                            path={routes.NOT_FOUND}
-                            element={<PageNotFound />}
-                        />
-                    </Routes>
-                </Suspense>
-            </BrowserRouter>
-            <Toaster
-                position="top-center"
-                gutter={12}
-                containerStyle={{ margin: "8px" }}
-                toastOptions={{
-                    success: {
-                        duration: 3000, // milliseconds
-                    },
-                    error: {
-                        duration: 5000, // milliseconds
-                    },
-                    style: {
-                        fontSize: "16px",
-                        maxWidth: "500px",
-                        padding: "16px 24px",
-                        backgroundColor: "var(--color-grey-0)",
-                        color: "var(--color-grey-700)",
-                    },
-                }}
-            />
-        </QueryClientProvider>
+                        </Routes>
+                    </Suspense>
+                </BrowserRouter>
+                <Toaster
+                    position="top-center"
+                    gutter={12}
+                    containerStyle={{ margin: "8px" }}
+                    toastOptions={{
+                        success: {
+                            duration: 3000, // milliseconds
+                        },
+                        error: {
+                            duration: 5000, // milliseconds
+                        },
+                        style: {
+                            fontSize: "16px",
+                            maxWidth: "500px",
+                            padding: "16px 24px",
+                            backgroundColor: "var(--color-grey-0)",
+                            color: "var(--color-grey-700)",
+                        },
+                    }}
+                />
+            </QueryClientProvider>
+        </DarkModeProvider>
     );
 }
 
