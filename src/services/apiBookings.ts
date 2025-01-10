@@ -1,4 +1,5 @@
 import {
+    IActivity,
     IBookingSales,
     IStay,
 } from "../features/dashboard/dashboard.interfaces";
@@ -105,7 +106,7 @@ export async function getStaysAfterDate(date: string): Promise<IStay[]> {
 }
 
 // Activity means that there is a check in or a check out today
-export async function getStaysTodayActivity() {
+export async function getStaysTodayActivity(): Promise<IActivity[]> {
     const { data, error } = await supabase
         .from("bookings")
         .select("*, guests(fullName, nationality, countryFlag)")

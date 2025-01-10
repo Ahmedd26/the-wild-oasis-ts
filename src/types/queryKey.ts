@@ -6,6 +6,7 @@ export const queryKeys = {
     USER: "user",
     GUESTS: "guests",
     SETTINGS: "settings",
+    TODAY_ACTIVITY: "today-activity",
 } as const;
 
 export type QueryKeys = (typeof queryKeys)[keyof typeof queryKeys];

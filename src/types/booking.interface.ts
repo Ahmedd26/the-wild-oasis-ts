@@ -17,7 +17,7 @@ export interface IBookingRes {
     numGuests: number;
     totalPrice: number;
     isPaid: boolean;
-    status: "unconfirmed" | "checked-in" | "checked-out";
+    status: TStatus;
     cabins: {
         name: string;
     };
@@ -26,3 +26,4 @@ export interface IBookingRes {
         email: string;
     };
 }
+export type TStatus = "unconfirmed" | "checked-in" | "checked-out";

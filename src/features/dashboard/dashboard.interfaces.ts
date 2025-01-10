@@ -1,3 +1,5 @@
+import { TStatus } from "../../types/booking.interface";
+
 export interface IStay {
     id: number;
     created_at: string;
@@ -8,7 +10,7 @@ export interface IStay {
     cabinPrice: number;
     extrasPrice: number;
     totalPrice: number;
-    status: string;
+    status: TStatus;
     hasBreakfast: boolean;
     isPaid: boolean;
     observations: string;
@@ -22,4 +24,8 @@ export interface IBookingSales {
     created_at: string;
     totalPrice: number;
     extrasPrice: number;
+}
+
+export interface IActivity extends Omit<IStay, "guests"> {
+    guests: { fullName: string; nationality: string; countryFlag: string };
 }
