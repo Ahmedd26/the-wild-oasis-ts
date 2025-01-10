@@ -65,6 +65,7 @@ export async function getBooking(id: string) {
 }
 
 // Returns all BOOKINGS that are were created after the given date. Useful to get bookings created in the last 30 days, for example.
+// Date needs to ISOString format for supabase specifications.
 export async function getBookingsAfterDate(date: string) {
     const { data, error } = await supabase
         .from("bookings")
