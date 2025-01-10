@@ -1,3 +1,7 @@
+import {
+    IBookingSales,
+    IStay,
+} from "../features/dashboard/dashboard.interfaces";
 import { IBookingRes } from "../types/booking.interface";
 import { queryKeys } from "../types/queryKey";
 import { PAGE_SIZE } from "../utils/constants";
@@ -66,7 +70,9 @@ export async function getBooking(id: string) {
 
 // Returns all BOOKINGS that are were created after the given date. Useful to get bookings created in the last 30 days, for example.
 // Date needs to ISOString format for supabase specifications.
-export async function getBookingsAfterDate(date: string) {
+export async function getBookingsAfterDate(
+    date: string
+): Promise<IBookingSales[]> {
     const { data, error } = await supabase
         .from("bookings")
         .select("created_at, totalPrice, extrasPrice")
@@ -82,7 +88,7 @@ export async function getBookingsAfterDate(date: string) {
 }
 
 // Returns all STAYS that are were created after the given date
-export async function getStaysAfterDate(date: string) {
+export async function getStaysAfterDate(date: string): Promise<IStay[]> {
     const { data, error } = await supabase
         .from("bookings")
         // .select('*')
