@@ -1,6 +1,6 @@
 // routes.ts
 export const routes = {
-    DASHBOARD: "/" as const,
+    DASHBOARD: "/dashboard" as const,
     BOOKINGS: "bookings" as const,
     BOOKING: (bookingId: string | number) => `${bookingId}` as const,
     CHECKIN: "checkin" as const,
