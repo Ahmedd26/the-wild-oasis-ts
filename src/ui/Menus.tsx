@@ -103,6 +103,7 @@ function Toggle({ id }: { id: string }) {
     }
     const { openId, open, close, setPosition } = context;
     function handleClick(e: MouseEvent<HTMLButtonElement>) {
+        e.stopPropagation();
         const rect = e.currentTarget.getBoundingClientRect();
         setPosition({
             x: window.innerWidth - rect.width - rect.x,
@@ -123,7 +124,7 @@ function List({ children, id }: { children: React.ReactNode; id: string }) {
         throw new Error("List must be used within a Menus");
     }
     const { openId, position, close } = context;
-    const ref = useOutsideClick<HTMLUListElement>(close);
+    const ref = useOutsideClick<HTMLUListElement>(close, false);
     if (openId !== id) return null;
     return createPortal(
         <StyledList
